@@ -73,6 +73,10 @@ section{padding-block:clamp(48px,7vw,96px)}
 .hero-copy{position:relative;z-index:2}
 #h3d{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:1}
 .cam{position:relative;width:100%;max-width:520px;aspect-ratio:3/4.1;justify-self:center}
+.cam,#h3d{display:none!important}
+.edit-stage{position:relative;width:100%;max-width:560px;aspect-ratio:1.15/1;justify-self:center;border:1px solid #333;background:linear-gradient(145deg,#17181b,#0d0e10);border-radius:20px;padding:18px;box-shadow:0 24px 70px #0008;overflow:hidden}
+.edit-top{display:flex;justify-content:space-between;color:#8d8d88;font:11px var(--f-body);letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #333;padding-bottom:14px}.edit-live{color:var(--accent)}
+.edit-screen{height:50%;margin:18px 0;background:linear-gradient(135deg,#29255d,#151622 55%,#335343);position:relative;overflow:hidden;border-radius:8px}.edit-screen:before{content:'[ PREVIEW ]';position:absolute;left:16px;top:12px;color:#fff8;font:11px var(--f-body);letter-spacing:.12em}.edit-screen:after{content:'';position:absolute;inset:-40%;background:conic-gradient(from 180deg,transparent,var(--accent),transparent 35%);opacity:.3;animation:editSweep 4s linear infinite}@keyframes editSweep{to{transform:rotate(360deg)}}.edit-title{position:absolute;z-index:2;left:14%;bottom:17%;font:700 clamp(24px,4vw,48px)/.85 var(--f-display);color:#fff;text-transform:uppercase;letter-spacing:-.04em;text-shadow:3px 3px 0 #0008;animation:titleBeat 2.4s ease-in-out infinite}@keyframes titleBeat{50%{transform:translateY(-4px);letter-spacing:0}}.timeline{position:relative;height:28%;border-top:1px solid #444;padding-top:10px}.track{height:24px;margin:5px 0;border-radius:4px;position:relative;overflow:hidden}.track.video{background:linear-gradient(90deg,#7464e6 0 18%,#d8a64a 18% 32%,#4d9d8f 32% 52%,#e06775 52% 70%,#7464e6 70%)}.track.audio{background:repeating-linear-gradient(90deg,#76cbaa 0 3px,transparent 3px 7px);opacity:.75}.track.text{background:linear-gradient(90deg,transparent 0 12%,var(--accent) 12% 27%,transparent 27% 41%,var(--accent) 41% 66%,transparent 66% 77%,var(--accent) 77%)}.playhead{position:absolute;top:0;bottom:0;left:18%;width:2px;background:#fff;box-shadow:0 0 14px #fff;animation:playhead 4.5s linear infinite;z-index:2}.playhead:before{content:'';position:absolute;top:-6px;left:-4px;border:5px solid transparent;border-top-color:#fff}@keyframes playhead{to{left:92%}}.edit-controls{display:flex;justify-content:space-between;align-items:center;color:#bbb;font:11px var(--f-body);margin-top:10px}.edit-controls b{color:var(--accent);font-size:18px}.edit-stage:hover{transform:translateY(-5px) rotate(.4deg);box-shadow:0 30px 90px #000a}.edit-stage{transition:.4s var(--ease)}
 .cam-slot{position:absolute;left:0;top:0;width:100%;height:100%}
 .cam-hint{position:absolute;left:0;right:0;bottom:0;margin:0;text-align:center;font:600 12px var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:#8C877E;z-index:72;pointer-events:none;transition:opacity .4s}
 @media (hover:none){.cam-hint{display:none}}
@@ -233,6 +237,12 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   </div>
   <div class="cam" id="cam"><div class="cam-slot" id="orbSlot" aria-hidden="true"></div></div>
   <canvas id="h3d" aria-hidden="true"></canvas>
+  <div class="edit-stage" id="editStage" aria-label="Анимация монтажа в CapCut">
+    <div class="edit-top"><span class="edit-live">● монтажная сессия</span><span>09:16 / 00:32</span></div>
+    <div class="edit-screen"><div class="edit-title">HOOK<br>RETENTION</div></div>
+    <div class="timeline"><div class="playhead"></div><div class="track video"></div><div class="track audio"></div><div class="track text"></div></div>
+    <div class="edit-controls"><span>◀◀</span><b>▶</b><span>▶▶</span><span>00:04:18</span><span>1080×1920</span></div>
+  </div>
 </section>
 
 <section id="formats">
