@@ -10,21 +10,21 @@
 <style>
 /* Layout idea: a form made of thousands of particles opens the page; scrolling down bursts it apart and pulls every particle into the pointer, scrolling up rebuilds it. Then one screen to pick a format, proof, price, one button. */
 :root{
-  --bg:#0B0B0C; --ink:#F4F1EC; --soft:#D5D0C7; --muted:#A8A39A; --line:#2B2926; --panel:#151516;
-  --accent:#FF5A36; --on-accent:#0B0B0C; --accent-text:#FF5A36;
+  --bg:#0D111B; --ink:#F4F6FF; --soft:#D7DCEF; --muted:#9AA4BE; --line:#29334A; --panel:#141B2B;
+  --accent:#B6A4FF; --on-accent:#0D111B; --accent-text:#C8BCFF;
   --f-display:'Oswald','Arial Narrow',sans-serif; --f-body:'Manrope',Arial,sans-serif; --f-alt:'Playfair Display',Georgia,serif;
   --dw:700; --h1:clamp(44px,6.4vw,98px); --h2:clamp(32px,4.2vw,58px); --lh1:.95;
   --radius:18px; --pill:999px; --card-border:1px solid var(--line); --card-shadow:none;
-  --ph-body:#19191B; --ph-line:#3A3733; --ph-edge:#050505; --ph-shadow:rgba(0,0,0,.55);
+  --ph-body:#111827; --ph-line:#3B4A68; --ph-edge:#070B13; --ph-shadow:rgba(2,7,18,.6);
   color-scheme:dark;
 }
 :root[data-style="light"]{
-  --bg:#F2EFE6; --ink:#121212; --soft:#33312D; --muted:#4A4842; --line:#121212; --panel:#FFFFFF;
-  --accent:#C8F53C; --on-accent:#121212; --accent-text:#121212;
+  --bg:#F2F4F8; --ink:#111827; --soft:#334155; --muted:#64748B; --line:#CBD5E1; --panel:#FFFFFF;
+  --accent:#8DE3CF; --on-accent:#111827; --accent-text:#111827;
   --f-display:'Unbounded','Arial Black',sans-serif; --f-body:'Onest',Arial,sans-serif; --f-alt:'Unbounded','Arial Black',sans-serif;
   --dw:900; --h1:clamp(30px,4.6vw,68px); --h2:clamp(24px,3vw,42px); --lh1:1.06;
   --radius:22px; --card-border:2px solid #121212; --card-shadow:6px 6px 0 #121212;
-  --ph-body:#121212; --ph-line:#121212; --ph-edge:#3A3A3A; --ph-shadow:rgba(18,18,18,.25);
+  --ph-body:#E2E8F0; --ph-line:#111827; --ph-edge:#94A3B8; --ph-shadow:rgba(15,23,42,.2);
   color-scheme:light;
 }
 *{box-sizing:border-box}
@@ -62,12 +62,12 @@ section{padding-block:clamp(48px,7vw,96px)}
 [id]{scroll-margin-top:84px}
 
 /* opener: always black, in both styles, so the particle film has no visible edge */
-.hero{margin-top:20px;border-radius:28px;background:#000;color:#F4F1EC;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(16px,3vw,40px);align-items:center;padding:clamp(24px,4vw,56px);min-height:min(92vh,820px)}
+.hero{margin-top:20px;border-radius:28px;background:linear-gradient(145deg,var(--panel),var(--bg));color:var(--ink);display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(16px,3vw,40px);align-items:center;padding:clamp(24px,4vw,56px);min-height:min(92vh,820px)}
 .hero-copy{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
 .hero-copy .alt{font-family:var(--f-alt);font-style:italic;font-size:clamp(26px,3.6vw,54px);line-height:1.05;color:var(--accent)}
 :root[data-style="light"] .hero-copy .alt{font-style:normal;font-weight:500;font-size:clamp(18px,2.2vw,30px);text-transform:uppercase}
-.hero-copy p{max-width:32em;font-size:19px;color:#D5D0C7}
-.hero-copy .btn.ghost{color:#F4F1EC;border-color:#A8A39A}
+.hero-copy p{max-width:32em;font-size:19px;color:var(--soft)}
+.hero-copy .btn.ghost{color:var(--ink);border-color:var(--muted)}
 .cta-row{display:flex;gap:12px;flex-wrap:wrap}
 .hero{position:relative;overflow:hidden;touch-action:pan-y}
 .hero-copy{position:relative;z-index:2}
