@@ -146,7 +146,7 @@ section{padding-block:clamp(48px,7vw,96px)}
 .fmt{align-self:flex-start;min-height:44px;display:inline-flex;align-items:center;color:var(--accent-text);font-weight:600;font-size:14px}
 
 /* about + price */
-.about-heading{display:flex;align-items:baseline;gap:18px;margin-bottom:24px}.about-heading h2{font-size:clamp(34px,5vw,64px);line-height:.95}
+.about-column{min-width:0}.about-heading{display:flex;align-items:center;gap:14px;min-height:42px;margin:0 0 24px 4px}.about-heading h2{font-size:clamp(28px,3.2vw,42px);line-height:1}
 .ap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
 .me{display:flex;gap:22px;align-items:center;padding:24px;min-width:0}
 .me img{width:clamp(145px,29%,205px);flex:0 0 clamp(145px,29%,205px);aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius)}
@@ -163,7 +163,7 @@ section{padding-block:clamp(48px,7vw,96px)}
 .prices .pc:last-child{grid-column:1/-1}
 @media (max-width:1050px){.ap{grid-template-columns:1fr 1fr}.me{align-items:flex-start}.pc{align-items:flex-start;flex-direction:column;gap:10px}.pc strong{font-size:32px}}
 @media (max-width:900px){.ap{grid-template-columns:1fr}.price-heading{margin-top:4px}.prices{grid-template-columns:1fr}.prices .pc:last-child{grid-column:auto}.pc{flex-direction:row;align-items:center}}
-@media (max-width:700px){.about-heading{align-items:flex-start;flex-direction:column;gap:8px}.about-heading h2{font-size:clamp(38px,11vw,56px)}.me{gap:16px;padding:18px}.me img{width:112px;flex-basis:112px}.me .name{font-size:clamp(24px,7vw,34px)}.me-copy{gap:9px}.me .me-lead{font-size:18px}}
+@media (max-width:700px){.about-heading{align-items:flex-start;flex-direction:column;gap:8px;margin-left:0}.about-heading h2{font-size:clamp(38px,11vw,56px)}.me{gap:16px;padding:18px}.me img{width:112px;flex-basis:112px}.me .name{font-size:clamp(24px,7vw,34px)}.me-copy{gap:9px}.me .me-lead{font-size:18px}}
 @media (max-width:430px){.me{align-items:flex-start}.me img{width:94px;flex-basis:94px}.me .name{white-space:normal}.me p{font-size:13px}.me .me-lead{font-size:16px}}
 
 /* faq + final */
@@ -318,15 +318,17 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
 </section>
 
 <section id="price">
-  <div class="about-heading"><span class="eyebrow">Обо мне</span><h2 class="display">Кто монтирует</h2></div>
   <div class="ap">
-    <div class="me card">
+    <div class="about-column">
+      <div class="about-heading"><span class="eyebrow">Обо мне</span><h2 class="display">Кто монтирует</h2></div>
+      <div class="me card">
       <img src="me.jpg" alt="Владислав Былинский">
       <div class="me-copy">
         <span class="name display">Владислав <span class="surname">Былинский</span></span>
         <p class="me-lead">Создаю видеоконтент, который хочется досмотреть.</p>
         <p>Более 3 лет монтирую ролики, усиливаю первые секунды и превращаю исходники в понятную историю. Внимателен к деталям, использую AI-инструменты и соблюдаю сроки.</p>
         <a class="me-link" data-tg href="https://t.me/[ваш_telegram]"><b>Обсудить проект <span aria-hidden="true">↗</span></b></a>
+      </div>
       </div>
     </div>
     <div class="prices">
