@@ -483,6 +483,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   /* before / after */
   var baBox=$('baBox'), baB=$('baBefore'), baA=$('baAfter');
   $('baRange').addEventListener('input',function(){baBox.style.setProperty('--pos',this.value+'%');});
+  baBox.addEventListener('click',function(e){if(e.target.id==='baRange')return;baA.muted=false;baB.muted=true;var p=baA.play();if(p&&p.catch)p.catch(function(){});});
   baA.addEventListener('timeupdate',function(){if(Math.abs(baB.currentTime-baA.currentTime)>.35){try{baB.currentTime=baA.currentTime;}catch(e){}}});
 
   /* looping videos start only when they come on screen and pause when they leave: nothing heavy on page open */
