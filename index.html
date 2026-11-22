@@ -293,7 +293,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   <div class="formats">
     <div class="stage" id="stage">
       <button class="side prev" id="prev" type="button" aria-label="Предыдущий формат"><span class="phone" style="display:block"><img id="prevImg" src="simple.jpg" alt=""></span></button>
-      <div class="center phone" id="center"><video id="cv" controls loop playsinline preload="metadata" poster="expert-ai.jpg" src="expert-ai.mp4"></video><button class="video-mute" type="button" data-mute-target="cv" aria-label="Включить звук">Звук: выкл.</button></div>
+      <div class="center phone" id="center"><video id="cv" controls loop playsinline preload="none" poster="expert-ai.jpg" src="expert-ai.mp4"></video><button class="video-mute" type="button" data-mute-target="cv" aria-label="Включить звук">Звук: выкл.</button></div>
       <button class="side next" id="next" type="button" aria-label="Следующий формат"><span class="phone" style="display:block"><img id="nextImg" src="avatar.jpg" alt=""></span></button>
     </div>
     <div class="offer" id="offer" aria-live="polite">
@@ -317,7 +317,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
 <section class="ba-sec" id="ba">
   <div class="ba phone" id="baBox">
     <div class="ba-in">
-      <video class="after" id="baAfter" data-video-group="before-after" loop playsinline preload="metadata" poster="after.jpg" src="after.mp4"></video>
+      <video class="after" id="baAfter" data-video-group="before-after" loop playsinline preload="none" poster="after.jpg" src="after.mp4"></video>
       <video class="before" id="baBefore" data-video-group="before-after" muted loop playsinline preload="none" poster="before.jpg" src="before.mp4"></video>
       <div class="ba-line"></div>
       <span class="ba-tag l">До</span><span class="ba-tag r">После</span>
@@ -343,7 +343,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
     <span>Идея и драматургия</span><span>ИИ-кадры и визуал</span><span>Озвучка и монтаж</span>
   </div>
   <div class="zodiac-demo">
-    <div class="zodiac-screen"><video id="zodiacVideo" controls playsinline preload="metadata" poster="zodiac-sagittarius.jpg" src="zodiac-sagittarius.mp4"></video><button class="video-mute" type="button" data-mute-target="zodiacVideo" aria-label="Включить звук">Звук: выкл.</button></div>
+    <div class="zodiac-screen"><video id="zodiacVideo" controls playsinline preload="none" poster="zodiac-sagittarius.jpg" src="zodiac-sagittarius.mp4"></video><button class="video-mute" type="button" data-mute-target="zodiacVideo" aria-label="Включить звук">Звук: выкл.</button></div>
     <div class="zodiac-picks" role="tablist" aria-label="Примеры видео по знакам зодиака">
       <button type="button" role="tab" aria-selected="true" data-zodiac="zodiac-sagittarius" data-sign="Стрелец">Стрелец<small>пример исполнения</small></button>
       <button type="button" role="tab" aria-selected="false" data-zodiac="zodiac-scorpio" data-sign="Скорпион">Скорпион<small>пример исполнения</small></button>
@@ -465,7 +465,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
     Array.prototype.forEach.call($('tabs').children,function(b,i){b.setAttribute('aria-selected',i===fmtI?'true':'false');});
     $('prevImg').src=F[(fmtI+n-1)%n].vid+'.jpg';$('nextImg').src=F[(fmtI+1)%n].vid+'.jpg';
   }
-  function setVideo(name){cv.poster=name+'.jpg';cv.src=name+'.mp4';tryPlay(cv);}
+  function setVideo(name){cv.pause();cv.removeAttribute('src');cv.poster=name+'.jpg';cv.src=name+'.mp4';cv.load();tryPlay(cv);}
   function select(i,vid,dir){
     var n=F.length;i=(i+n)%n;
     var name=vid||F[i].vid, changed=(i!==fmtI)||(cv.getAttribute('src')!==name+'.mp4');
@@ -515,7 +515,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
     var lv=document.querySelectorAll('video[data-lazy]');
     if(!('IntersectionObserver' in window)){Array.prototype.forEach.call(lv,tryPlay);return;}
     var lo=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;
-      if(e.isIntersecting){if(v.paused)tryPlay(v);}else if(!v.paused){v.pause();v.muted=true;}});},{rootMargin:'0px'});
+      if(e.isIntersecting){if(v===cv&&window.matchMedia('(max-width:860px)').matches)return;if(v.paused)tryPlay(v);}else if(!v.paused){v.pause();v.muted=true;}});},{rootMargin:'0px'});
     Array.prototype.forEach.call(lv,function(v){lo.observe(v);});
   })();
 
