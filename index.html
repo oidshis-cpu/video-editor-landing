@@ -181,13 +181,6 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
 /* the particle form is drawn on one full-window layer above the page */
 #fx{position:fixed;left:0;top:0;width:100%;height:100%;z-index:70;pointer-events:none}
 .orb-cursor #fx{z-index:90}
-#editCursor{position:fixed;z-index:120;width:32px;height:32px;pointer-events:none;transform:translate(-10%,-10%) rotate(-18deg) scale(.86);opacity:0;transition:opacity .2s,transform .2s}
-#editCursor:before{content:'✂';position:absolute;inset:0;display:grid;place-items:center;color:var(--accent);font:32px/1 Arial,sans-serif;text-shadow:1px 2px 0 color-mix(in srgb,var(--ink) 45%,transparent)}
-#editCursor:after{display:none}
-#editCursor.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
-#editCursor.down{transform:translate(-10%,-10%) rotate(-18deg) scale(.72)}
-#editCursor.down:before{color:var(--accent)}
-@media (pointer:coarse){#editCursor{display:none}}
 
 /* back to top */
 #toTop{position:fixed;right:18px;bottom:18px;z-index:75;width:52px;height:52px;border-radius:50%;border:2px solid var(--ink);background:var(--bg);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center}
@@ -371,7 +364,6 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
 <button id="toTop" type="button" aria-label="Наверх" hidden><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"></path><path d="M6 11l6-6 6 6"></path></svg></button>
 <a class="btn sticky-cta" id="stickyCta" data-tg href="https://t.me/[ваш_telegram]">Написать в Telegram</a>
 <canvas id="fx" aria-hidden="true"></canvas>
-<div id="editCursor" aria-hidden="true"></div>
 
 <script src="hero3d.js"></script>
 <script>
@@ -878,16 +870,6 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   }
   requestAnimationFrame(frame);
 
-})();
-</script>
-<script>
-(function(){
-  var cursor=document.getElementById('editCursor');
-  if(!cursor || !window.matchMedia('(pointer:fine)').matches)return;
-  window.addEventListener('pointermove',function(e){cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';cursor.classList.add('on')},{passive:true});
-  window.addEventListener('pointerdown',function(){cursor.classList.add('down')},{passive:true});
-  window.addEventListener('pointerup',function(){cursor.classList.remove('down')},{passive:true});
-  window.addEventListener('pointerleave',function(){cursor.classList.remove('on')},{passive:true});
 })();
 </script>
 </body>
