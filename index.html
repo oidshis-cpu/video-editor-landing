@@ -150,7 +150,8 @@ section{padding-block:clamp(48px,7vw,96px)}
 .me{display:flex;gap:24px;align-items:center;padding:24px;flex-wrap:wrap}
 .me img{width:min(240px,100%);aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius)}
 .me div{display:flex;flex-direction:column;gap:12px;flex:1 1 200px}
-.me .name{font-size:44px;line-height:1}
+.me .name{font-size:44px;line-height:1.12}
+.me .name .surname{display:inline-block;margin-left:.16em}
 .me p{color:var(--muted)}
 .prices{display:flex;flex-direction:column;gap:22px}
 .pc{flex:1;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 28px;flex-wrap:wrap}
@@ -316,8 +317,8 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
       <img src="me.jpg" alt="Владислав Былинский">
       <div>
         <span class="eyebrow">Кто монтирует</span>
-        <span class="name display">Владислав Былинский</span>
-        <p>Более 3 лет создаю видеоконтент, который помогает проектам быть заметнее, вызывать доверие и продавать.</p>
+        <span class="name display">Владислав <span class="surname">Былинский</span></span>
+        <p>Более 3 лет создаю видеоконтент. Чувствую динамику, усиливаю первые секунды, думаю как сценарист, работаю с AI-инструментами, внимательно отношусь к деталям и соблюдаю сроки.</p>
         <a data-tg href="https://t.me/[ваш_telegram]"><b>Написать лично</b></a>
       </div>
     </div>
