@@ -280,7 +280,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   <div class="formats">
     <div class="stage" id="stage">
       <button class="side prev" id="prev" type="button" aria-label="Предыдущий формат"><span class="phone" style="display:block"><img id="prevImg" src="simple.jpg" alt=""></span></button>
-      <div class="center phone" id="center"><video id="cv" muted loop playsinline preload="none" data-lazy poster="expert-ai.jpg" src="expert-ai.mp4"></video></div>
+      <div class="center phone" id="center"><video id="cv" controls loop playsinline preload="metadata" poster="expert-ai.jpg" src="expert-ai.mp4"></video></div>
       <button class="side next" id="next" type="button" aria-label="Следующий формат"><span class="phone" style="display:block"><img id="nextImg" src="avatar.jpg" alt=""></span></button>
     </div>
     <div class="offer" id="offer" aria-live="polite">
@@ -317,14 +317,6 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
     <h2 class="display">Что меняет монтаж</h2>
     <p>Из идеи и исходников собираю видео, которое привлекает внимание, вызывает доверие, помогает продавать и экономит ваше время.</p>
   </div>
-</section>
-
-<section id="works">
-  <div class="works-head">
-    <h2 class="display">Работы</h2>
-    <p>Наведите, и ролик заиграет со звуком. <span id="soundHint" hidden>Браузер включит звук после первого нажатия на страницу.</span></p>
-  </div>
-  <div class="grid" id="grid"></div>
 </section>
 
 <section class="special-offer" id="zodiac-offer">
@@ -487,37 +479,6 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
       zodiacVideo.pause();zodiacVideo.poster=name+'.jpg';zodiacVideo.src=name+'.mp4';zodiacVideo.load();
     });
   });
-
-  /* works grid with sound */
-  var fxHover=null, fxAudio=null;
-  var grid=$('grid'), vids=[], activated=false;
-  window.addEventListener('pointerdown',function(){activated=true;$('soundHint').hidden=true;},{once:true});
-  function playSound(v){
-    vids.forEach(function(o){if(o!==v){o.pause();o.muted=true;}});
-    v.muted=false;
-    var p=v.play();
-    if(p&&p.catch)p.catch(function(){v.muted=true;tryPlay(v);if(!activated)$('soundHint').hidden=false;});
-  }
-  WORKS.forEach(function(w){
-    var c=document.createElement('div');c.className='work';
-    var fr=document.createElement('button');fr.type='button';fr.className='frame';fr.setAttribute('aria-label','Включить ролик «'+w.t+'» со звуком');
-    var v=document.createElement('video');v.muted=true;v.loop=true;v.playsInline=true;v.preload='none';v.poster=w.v+'.jpg';v.src=w.v+'.mp4';vids.push(v);
-    var pl=document.createElement('span');pl.className='play';pl.setAttribute('aria-hidden','true');
-    pl.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16"><path d="M7 4l13 8-13 8z" fill="currentColor"></path></svg>';
-    fr.appendChild(v);fr.appendChild(pl);
-    var t=document.createElement('b');t.textContent=w.t;
-    var s=document.createElement('small');s.textContent=w.s;
-    c.appendChild(fr);c.appendChild(t);c.appendChild(s);
-    if(w.r){var re=document.createElement('span');re.className='res';re.textContent=w.r;c.appendChild(re);}
-    fr.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'){playSound(v);if(fxHover)fxHover(fr,w.v);}});
-    fr.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'){v.pause();v.muted=true;}});
-    fr.addEventListener('click',function(){activated=true;if(v.paused||v.muted)playSound(v);else{v.pause();v.muted=true;}});
-    grid.appendChild(c);
-  });
-  if(window.matchMedia('(hover: none)').matches&&'IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){if(v.paused){v.muted=true;tryPlay(v);}}else if(v.muted)v.pause();});},{threshold:.6});
-    vids.forEach(function(v){io.observe(v);});
-  }
 
   /* before / after */
   var baBox=$('baBox'), baB=$('baBefore'), baA=$('baAfter');
