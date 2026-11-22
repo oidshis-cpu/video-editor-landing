@@ -422,6 +422,8 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   var root=document.documentElement;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function tryPlay(v){var p=v.play();if(p&&p.catch)p.catch(function(){});}
+  var pageVideos=Array.prototype.slice.call(document.querySelectorAll('video'));
+  pageVideos.forEach(function(v){v.addEventListener('play',function(){if(v.muted)return;pageVideos.forEach(function(other){if(other!==v)other.muted=true;});});});
   var TG='https://t.me/shis01d?text=';
   Array.prototype.forEach.call(document.querySelectorAll('[data-tg]'),function(a){a.href=TG+encodeURIComponent('Здравствуйте! Хочу обсудить монтаж ролика.');});
 
