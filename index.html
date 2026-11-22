@@ -150,10 +150,10 @@ section{padding-block:clamp(48px,7vw,96px)}
 .ap{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);gap:22px;align-items:start}
 .me{display:flex;gap:22px;align-items:center;padding:24px;min-width:0}
 .me img{width:clamp(145px,29%,205px);flex:0 0 clamp(145px,29%,205px);aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius)}
-.me-copy{display:flex;flex-direction:column;gap:12px;min-width:0;flex:1}
-.me .name{font-size:clamp(26px,2.7vw,36px);line-height:1.04;letter-spacing:-.045em;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:clip}
+.me-copy{display:flex;flex-direction:column;gap:12px;min-width:0;max-width:100%;flex:1}
+.me .name{font-size:clamp(24px,2.45vw,34px);line-height:1.04;letter-spacing:-.045em;white-space:normal;overflow-wrap:break-word;word-break:normal;max-width:100%}
 .me .name .surname{display:inline-block;margin-left:.16em}
-.me p{color:var(--muted);font-size:clamp(14px,1.15vw,16px);line-height:1.45;margin:0}.me .me-lead{color:var(--ink);font-size:clamp(18px,1.7vw,22px);line-height:1.2;max-width:18em}.me-link{align-self:flex-start;margin-top:4px;color:var(--accent-text);font-size:15px}.me-link span{font-size:20px;margin-left:4px}
+.me p{color:var(--muted);font-size:clamp(14px,1.15vw,16px);line-height:1.45;margin:0;max-width:100%;overflow-wrap:break-word}.me .me-lead{color:var(--ink);font-size:clamp(18px,1.7vw,22px);line-height:1.2;max-width:18em}.me-link{align-self:flex-start;margin-top:4px;color:var(--accent-text);font-size:15px}.me-link span{font-size:20px;margin-left:4px}
 .prices{display:flex;flex-direction:column;gap:22px}
 .price-heading{display:flex;align-items:center;gap:14px;min-height:42px}.price-heading h2{font-size:clamp(28px,3.2vw,42px);line-height:1}
 .pc{flex:1;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 28px;flex-wrap:wrap}
