@@ -507,12 +507,8 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
     fr.appendChild(v);fr.appendChild(pl);
     var t=document.createElement('b');t.textContent=w.t;
     var s=document.createElement('small');s.textContent=w.s;
-    var go=document.createElement('a');go.className='fmt';go.href='#formats';go.textContent='Что входит';
-    go.addEventListener('click',function(){select(w.f,w.v,1);});
-    var ni=document.createElement('span');ni.className='niche';ni.textContent=w.n;
-    c.appendChild(fr);c.appendChild(ni);c.appendChild(t);c.appendChild(s);
+    c.appendChild(fr);c.appendChild(t);c.appendChild(s);
     if(w.r){var re=document.createElement('span');re.className='res';re.textContent=w.r;c.appendChild(re);}
-    c.appendChild(go);
     fr.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'){playSound(v);if(fxHover)fxHover(fr,w.v);}});
     fr.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'){v.pause();v.muted=true;}});
     fr.addEventListener('click',function(){activated=true;if(v.paused||v.muted)playSound(v);else{v.pause();v.muted=true;}});
