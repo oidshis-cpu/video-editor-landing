@@ -505,7 +505,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   var baBox=$('baBox'), baB=$('baBefore'), baA=$('baAfter');
   $('baRange').addEventListener('input',function(){baBox.style.setProperty('--pos',this.value+'%');});
   var pairRunning=false;
-  $('baPlay').addEventListener('click',function(){var start=baA.paused;baA.muted=false;baB.muted=true;if(start){pairRunning=true;baA.currentTime=0;baB.currentTime=0;baA.play();baB.play();this.textContent='Ⅱ Пауза';}else{pairRunning=false;baA.pause();baB.pause();baA.currentTime=0;baB.currentTime=0;this.textContent='▶ Запустить';}});
+  $('baPlay').addEventListener('click',function(){var start=baA.paused;baA.muted=false;baB.muted=true;pairRunning=true;baA.currentTime=0;baB.currentTime=0;baA.play();baB.play();this.textContent=start?'↻ Заново':'↻ Заново';});
   baA.addEventListener('ended',function(){pairRunning=false;baB.pause();$('baPlay').textContent='▶ Запустить';});
 
   /* looping videos start only when they come on screen and pause when they leave: nothing heavy on page open */
