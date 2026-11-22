@@ -440,7 +440,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   var pageVideos=Array.prototype.slice.call(document.querySelectorAll('video'));
   function syncMuteButtons(){Array.prototype.forEach.call(document.querySelectorAll('[data-mute-target]'),function(btn){var v=$(btn.getAttribute('data-mute-target'));if(!v)return;var on=!v.muted;btn.textContent=on?'Звук: вкл.':'Звук: выкл.';btn.setAttribute('aria-label',on?'Выключить звук':'Включить звук');});}
   var pairRunning=false;
-  pageVideos.forEach(function(v){v.addEventListener('play',function(){var group=v.getAttribute('data-video-group');pageVideos.forEach(function(other){var samePair=pairRunning&&group==='before-after'&&other.getAttribute('data-video-group')===group;if(other!==v&&!samePair){other.pause();other.currentTime=0;other.muted=true;}});syncMuteButtons();});v.addEventListener('volumechange',syncMuteButtons);});
+  pageVideos.forEach(function(v){v.addEventListener('play',function(){var group=v.getAttribute('data-video-group');if(group!=='before-after')pairRunning=false;pageVideos.forEach(function(other){var samePair=pairRunning&&group==='before-after'&&other.getAttribute('data-video-group')===group;if(other!==v&&!samePair){other.pause();other.currentTime=0;other.muted=true;}});syncMuteButtons();});v.addEventListener('volumechange',syncMuteButtons);});
   Array.prototype.forEach.call(document.querySelectorAll('[data-mute-target]'),function(btn){btn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var v=$(btn.getAttribute('data-mute-target'));if(!v)return;if(v.muted){pageVideos.forEach(function(other){if(other!==v)other.muted=true;});v.muted=false;var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.muted=true;}syncMuteButtons();});});
   syncMuteButtons();
   var TG='https://t.me/shis01d?text=';
@@ -506,8 +506,9 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   $('baRange').addEventListener('input',function(){baBox.style.setProperty('--pos',this.value+'%');});
   var pairSyncing=false,pairFrame=0;
   function syncPair(){if(!pairSyncing)return;var d=baA.currentTime-baB.currentTime;if(Math.abs(d)>.22){try{baB.currentTime=baA.currentTime;}catch(e){}}else{baB.playbackRate=Math.max(.96,Math.min(1.04,1+d*.55));}pairFrame=requestAnimationFrame(syncPair);}
-  $('baPlay').addEventListener('click',function(){var start=baA.paused;baA.muted=false;baB.muted=true;if(start){pairRunning=true;pairSyncing=true;baB.playbackRate=1;baB.currentTime=baA.currentTime;Promise.all([baA.play(),baB.play()]).catch(function(){});cancelAnimationFrame(pairFrame);pairFrame=requestAnimationFrame(syncPair);setTimeout(function(){pairRunning=false;},250);this.textContent='Ⅱ Пауза';}else{pairRunning=false;pairSyncing=false;cancelAnimationFrame(pairFrame);baA.pause();baB.pause();baB.playbackRate=1;this.textContent='▶ Запустить';}});
-  baA.addEventListener('ended',function(){$('baPlay').textContent='▶ Запустить';});
+  $('baPlay').addEventListener('click',function(){var start=baA.paused;baA.muted=false;baB.muted=true;if(start){pairRunning=true;pairSyncing=true;baB.playbackRate=1;baB.currentTime=baA.currentTime;Promise.all([baA.play(),baB.play()]).catch(function(){});cancelAnimationFrame(pairFrame);pairFrame=requestAnimationFrame(syncPair);this.textContent='Ⅱ Пауза';}else{pairRunning=false;pairSyncing=false;cancelAnimationFrame(pairFrame);baA.pause();baB.pause();baB.playbackRate=1;this.textContent='▶ Запустить';}});
+  baA.addEventListener('pause',function(){if(!baB.paused&&pairRunning)return;pairSyncing=false;cancelAnimationFrame(pairFrame);});
+  baA.addEventListener('ended',function(){pairRunning=false;pairSyncing=false;$('baPlay').textContent='▶ Запустить';});
   baA.addEventListener('timeupdate',function(){if(pairSyncing&&Math.abs(baB.currentTime-baA.currentTime)>.22){try{baB.currentTime=baA.currentTime;}catch(e){}}});
 
   /* looping videos start only when they come on screen and pause when they leave: nothing heavy on page open */
