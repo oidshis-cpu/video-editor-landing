@@ -270,22 +270,23 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   <div class="formats-head">
     <div class="h-row"><span class="fx-slot" data-shape="play" aria-hidden="true"></span><h2 class="display">Любой формат под вашу задачу</h2></div>
     <div class="tabs" role="tablist" aria-label="Формат ролика" id="tabs">
-      <button class="tab" role="tab" type="button" aria-selected="true" data-i="0">Эксперт с графикой</button>
+      <button class="tab" role="tab" type="button" aria-selected="true" data-i="0">Экспертные видео</button>
       <button class="tab" role="tab" type="button" aria-selected="false" data-i="1">ИИ-аватар</button>
-      <button class="tab" role="tab" type="button" aria-selected="false" data-i="2">ИИ-мультик</button>
-      <button class="tab" role="tab" type="button" aria-selected="false" data-i="3">Простой монтаж</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" data-i="2">Мультфильмы</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" data-i="3">AI-видео</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" data-i="4">Простой монтаж</button>
     </div>
   </div>
   <div class="formats">
     <div class="stage" id="stage">
       <button class="side prev" id="prev" type="button" aria-label="Предыдущий формат"><span class="phone" style="display:block"><img id="prevImg" src="simple.jpg" alt=""></span></button>
-      <div class="center phone" id="center"><video id="cv" muted loop playsinline preload="none" data-lazy poster="habits.jpg" src="habits.mp4"></video></div>
+      <div class="center phone" id="center"><video id="cv" muted loop playsinline preload="none" data-lazy poster="expert-ai.jpg" src="expert-ai.mp4"></video></div>
       <button class="side next" id="next" type="button" aria-label="Следующий формат"><span class="phone" style="display:block"><img id="nextImg" src="avatar.jpg" alt=""></span></button>
     </div>
     <div class="offer" id="offer" aria-live="polite">
-      <span class="num" id="oNum">01 / 04</span>
-      <h3 class="display" id="oTitle">Экспертный рилс с графикой</h3>
-      <p class="pitch" id="oPitch">Сложная мысль становится понятной за полминуты: под каждое ключевое слово своя графика и титр.</p>
+      <span class="num" id="oNum">01 / 05</span>
+      <h3 class="display" id="oTitle">Экспертное видео</h3>
+      <p class="pitch" id="oPitch">Видео для эксперта с понятной подачей, динамичным монтажом и AI-вставками.</p>
       <ul class="incl" id="oIncl">
         <li><span>01</span><span>Склейки и темп без пауз и воды</span></li>
         <li><span>02</span><span>Титры и инфографика в одном стиле</span></li>
@@ -408,14 +409,16 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
 <script>
 (function(){
   var F=[
-    {vid:'habits',title:'Экспертный рилс с графикой',pitch:'Сложная мысль становится понятной за полминуты: под каждое ключевое слово своя графика и титр.',
-     incl:['Склейки и темп без пауз и воды','Титры и инфографика в одном стиле','Музыка и звуковые акценты'],btn:'Хочу такой ролик',msg:'Здравствуйте! Хочу экспертный рилс с графикой.'},
+    {vid:'expert-ai',title:'Экспертное видео с AI-вставками',pitch:'Понятная подача экспертной темы, усиленная визуальными AI-вставками и динамичным монтажом.',
+     incl:['Сценарная структура и темп','AI-вставки под смысл ролика','Титры, музыка и звук'],btn:'Хочу экспертное видео',msg:'Здравствуйте! Хочу экспертное видео с AI-вставками.'},
     {vid:'avatar',title:'Ролики с ИИ-аватаром',pitch:'Вам не нужно сниматься. Один раз записываете короткое видео и голос, дальше ролики выходят с вашим аватаром.',
      incl:['Аватар и голос, похожие на вас','Сценарий под вашу тему','Монтаж с титрами и вставками'],btn:'Хочу ролики с аватаром',msg:'Здравствуйте! Хочу ролики с ИИ-аватаром.'},
-    {vid:'cartoon',title:'ИИ-мультик и ИИ-вставки',pitch:'Ролик, который выделяется в ленте: персонаж и мир под ваш бизнес, без съёмок и актёров.',
+    {vid:'cartoon',title:'Мультфильм с помощью ИИ',pitch:'Ролик, который выделяется в ленте: персонаж и мир под ваш бизнес, без съёмок и актёров.',
      incl:['Идея и сценарий','Генерация и монтаж сцен','Титры и звук'],btn:'Хочу ИИ-мультик',msg:'Здравствуйте! Хочу ИИ-мультик.'},
-    {vid:'simple',title:'Простой монтаж',pitch:'У вас уже есть хороший исходник. Убираю паузы, ставлю титры и музыку, отдаю готовый рилс.',
-     incl:['Склейки без пауз','Титры, которые читаются без звука','Музыка'],btn:'Нужен простой монтаж',msg:'Здравствуйте! Нужен простой монтаж рилса.'}
+    {vid:'fox',title:'AI-видео',pitch:'Создаю необычные визуальные сцены и ролики с помощью нейросетей под вашу идею и задачу.',
+     incl:['Концепция и визуальный стиль','Создание AI-кадров','Сборка и финальный монтаж'],btn:'Хочу AI-видео',msg:'Здравствуйте! Хочу AI-видео.'},
+    {vid:'simple',title:'Простой монтаж',pitch:'У вас уже есть исходники. Убираю паузы, ставлю титры и музыку, отдаю готовый рилс.',
+     incl:['Монтаж из ваших исходников','Титры и музыка','Готовый ролик от 1 дня'],btn:'Нужен простой монтаж',msg:'Здравствуйте! Нужен простой монтаж рилса.'}
   ];
   var WORKS=[
     {v:'expert-ai',t:'Эксперт с ИИ-вставками',s:'Экспертное видео',n:'Эксперт · AI-вставки',r:'',f:1},
