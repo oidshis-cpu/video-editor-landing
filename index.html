@@ -241,6 +241,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
 .center,.ba,.zodiac-screen{position:relative}
 video:fullscreen{width:100vw!important;height:100vh!important;max-width:none!important;max-height:none!important;object-fit:contain!important;background:#000}
 video:-webkit-full-screen{width:100vw!important;height:100vh!important;max-width:none!important;max-height:none!important;object-fit:contain!important;background:#000}
+video::backdrop{background:#000}
 </style>
 </head>
 <body>
@@ -440,6 +441,8 @@ video:-webkit-full-screen{width:100vw!important;height:100vh!important;max-width
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function tryPlay(v){var p=v.play();if(p&&p.catch)p.catch(function(){});}
   var pageVideos=Array.prototype.slice.call(document.querySelectorAll('video'));
+  function forceFullscreenFit(){var active=document.fullscreenElement||document.webkitFullscreenElement;pageVideos.forEach(function(v){if(v===active){v.style.objectFit='contain';v.style.width='100vw';v.style.height='100vh';}else{v.style.objectFit='';v.style.width='';v.style.height='';}});}
+  document.addEventListener('fullscreenchange',forceFullscreenFit);document.addEventListener('webkitfullscreenchange',forceFullscreenFit);
   function syncMuteButtons(){Array.prototype.forEach.call(document.querySelectorAll('[data-mute-target]'),function(btn){var v=$(btn.getAttribute('data-mute-target'));if(!v)return;var on=!v.muted;btn.textContent=on?'Звук: вкл.':'Звук: выкл.';btn.setAttribute('aria-label',on?'Выключить звук':'Включить звук');});}
   var pairRunning=false;
   pageVideos.forEach(function(v){v.addEventListener('play',function(){var group=v.getAttribute('data-video-group');if(group!=='before-after')pairRunning=false;pageVideos.forEach(function(other){var samePair=pairRunning&&group==='before-after'&&other.getAttribute('data-video-group')===group;if(other!==v&&!samePair){other.pause();other.currentTime=0;other.muted=true;}});syncMuteButtons();});v.addEventListener('volumechange',syncMuteButtons);});
