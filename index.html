@@ -226,6 +226,9 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
 .fx-slot.pop canvas{animation:iconPop .55s cubic-bezier(.2,1.6,.4,1)}
 @keyframes iconPop{0%{scale:1}35%{scale:1.35}100%{scale:1}}
 .fx-slot.big{width:170px}
+.video-mute{position:absolute;right:12px;bottom:12px;z-index:3;border:1px solid rgba(255,255,255,.45);background:rgba(10,10,16,.72);color:#fff;border-radius:999px;padding:9px 12px;font:600 12px/1 inherit;cursor:pointer;backdrop-filter:blur(8px)}
+.video-mute:hover{background:rgba(255,255,255,.95);color:#111}
+.center,.ba,.zodiac-screen{position:relative}
 </style>
 </head>
 <body>
@@ -280,7 +283,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   <div class="formats">
     <div class="stage" id="stage">
       <button class="side prev" id="prev" type="button" aria-label="Предыдущий формат"><span class="phone" style="display:block"><img id="prevImg" src="simple.jpg" alt=""></span></button>
-      <div class="center phone" id="center"><video id="cv" controls loop playsinline preload="metadata" poster="expert-ai.jpg" src="expert-ai.mp4"></video></div>
+      <div class="center phone" id="center"><video id="cv" controls loop playsinline preload="metadata" poster="expert-ai.jpg" src="expert-ai.mp4"></video><button class="video-mute" type="button" data-mute-target="cv" aria-label="Включить звук">Звук: выкл.</button></div>
       <button class="side next" id="next" type="button" aria-label="Следующий формат"><span class="phone" style="display:block"><img id="nextImg" src="avatar.jpg" alt=""></span></button>
     </div>
     <div class="offer" id="offer" aria-live="polite">
@@ -309,6 +312,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
       <div class="ba-line"></div>
       <span class="ba-tag l">До</span><span class="ba-tag r">После</span>
     </div>
+    <button class="video-mute" type="button" data-mute-target="baAfter" aria-label="Включить звук">Звук: выкл.</button>
     <input type="range" id="baRange" min="0" max="100" value="50" aria-label="Граница между исходником и готовым роликом">
   </div>
   <div class="ba-copy">
@@ -328,7 +332,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
     <span>Идея и драматургия</span><span>ИИ-кадры и визуал</span><span>Озвучка и монтаж</span>
   </div>
   <div class="zodiac-demo">
-    <div class="zodiac-screen"><video id="zodiacVideo" controls playsinline preload="metadata" poster="zodiac-sagittarius.jpg" src="zodiac-sagittarius.mp4"></video></div>
+    <div class="zodiac-screen"><video id="zodiacVideo" controls playsinline preload="metadata" poster="zodiac-sagittarius.jpg" src="zodiac-sagittarius.mp4"></video><button class="video-mute" type="button" data-mute-target="zodiacVideo" aria-label="Включить звук">Звук: выкл.</button></div>
     <div class="zodiac-picks" role="tablist" aria-label="Примеры видео по знакам зодиака">
       <button type="button" role="tab" aria-selected="true" data-zodiac="zodiac-sagittarius" data-sign="Стрелец">Стрелец<small>пример исполнения</small></button>
       <button type="button" role="tab" aria-selected="false" data-zodiac="zodiac-scorpio" data-sign="Скорпион">Скорпион<small>пример исполнения</small></button>
@@ -423,7 +427,10 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function tryPlay(v){var p=v.play();if(p&&p.catch)p.catch(function(){});}
   var pageVideos=Array.prototype.slice.call(document.querySelectorAll('video'));
-  pageVideos.forEach(function(v){v.addEventListener('play',function(){if(v.muted)return;pageVideos.forEach(function(other){if(other!==v)other.muted=true;});});});
+  function syncMuteButtons(){Array.prototype.forEach.call(document.querySelectorAll('[data-mute-target]'),function(btn){var v=$(btn.getAttribute('data-mute-target'));if(!v)return;var on=!v.muted;btn.textContent=on?'Звук: вкл.':'Звук: выкл.';btn.setAttribute('aria-label',on?'Выключить звук':'Включить звук');});}
+  pageVideos.forEach(function(v){v.addEventListener('play',function(){if(v.muted)return;pageVideos.forEach(function(other){if(other!==v)other.muted=true;});syncMuteButtons();});v.addEventListener('volumechange',syncMuteButtons);});
+  Array.prototype.forEach.call(document.querySelectorAll('[data-mute-target]'),function(btn){btn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var v=$(btn.getAttribute('data-mute-target'));if(!v)return;if(v.muted){pageVideos.forEach(function(other){if(other!==v)other.muted=true;});v.muted=false;var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.muted=true;}syncMuteButtons();});});
+  syncMuteButtons();
   var TG='https://t.me/shis01d?text=';
   Array.prototype.forEach.call(document.querySelectorAll('[data-tg]'),function(a){a.href=TG+encodeURIComponent('Здравствуйте! Хочу обсудить монтаж ролика.');});
 
