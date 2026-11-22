@@ -494,7 +494,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
     var lv=document.querySelectorAll('video[data-lazy]');
     if(!('IntersectionObserver' in window)){Array.prototype.forEach.call(lv,tryPlay);return;}
     var lo=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;
-      if(e.isIntersecting){if(v.paused)tryPlay(v);}else if(!v.paused&&v.muted)v.pause();});},{rootMargin:'150px 0px'});
+      if(e.isIntersecting){if(v.paused)tryPlay(v);}else if(!v.paused){v.pause();v.muted=true;}});},{rootMargin:'0px'});
     Array.prototype.forEach.call(lv,function(v){lo.observe(v);});
   })();
 
