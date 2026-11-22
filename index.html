@@ -181,12 +181,12 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
 /* the particle form is drawn on one full-window layer above the page */
 #fx{position:fixed;left:0;top:0;width:100%;height:100%;z-index:70;pointer-events:none}
 .orb-cursor #fx{z-index:90}
-#editCursor{position:fixed;z-index:120;width:34px;height:34px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(.8);opacity:0;transition:opacity .2s,transform .2s;background:color-mix(in srgb,var(--bg) 72%,transparent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 15%,transparent),0 0 24px color-mix(in srgb,var(--accent) 55%,transparent)}
-#editCursor:before{content:'▶';position:absolute;inset:0;display:grid;place-items:center;color:var(--accent);font-size:11px}
-#editCursor:after{content:'REC';position:absolute;left:50%;top:-16px;transform:translateX(-50%);font:700 8px/1 Arial,sans-serif;letter-spacing:.12em;color:var(--accent)}
+#editCursor{position:fixed;z-index:120;width:32px;height:32px;pointer-events:none;transform:translate(-50%,-50%) rotate(-18deg) scale(.86);opacity:0;transition:opacity .2s,transform .2s}
+#editCursor:before{content:'✂';position:absolute;inset:0;display:grid;place-items:center;color:var(--accent);font:32px/1 Arial,sans-serif;text-shadow:1px 2px 0 color-mix(in srgb,var(--ink) 45%,transparent)}
+#editCursor:after{display:none}
 #editCursor.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
-#editCursor.down{transform:translate(-50%,-50%) scale(.78);background:var(--accent)}
-#editCursor.down:before{color:var(--bg)}
+#editCursor.down{transform:translate(-50%,-50%) rotate(-18deg) scale(.72)}
+#editCursor.down:before{color:var(--accent)}
 @media (pointer:coarse){#editCursor{display:none}}
 
 /* back to top */
