@@ -304,7 +304,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
 <section class="ba-sec" id="ba">
   <div class="ba phone" id="baBox">
     <div class="ba-in">
-      <video class="after" id="baAfter" controls loop playsinline preload="metadata" poster="after.jpg" src="after.mp4"></video>
+      <video class="after" id="baAfter" autoplay loop playsinline preload="metadata" poster="after.jpg" src="after.mp4"></video>
       <video class="before" id="baBefore" muted loop playsinline preload="none" data-lazy poster="before.jpg" src="before.mp4"></video>
       <div class="ba-line"></div>
       <span class="ba-tag l">До</span><span class="ba-tag r">После</span>
@@ -484,6 +484,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   var baBox=$('baBox'), baB=$('baBefore'), baA=$('baAfter');
   $('baRange').addEventListener('input',function(){baBox.style.setProperty('--pos',this.value+'%');});
   baBox.addEventListener('click',function(e){if(e.target.id==='baRange')return;baA.muted=false;baB.muted=true;var p=baA.play();if(p&&p.catch)p.catch(function(){});});
+  window.addEventListener('pointerdown',function(){baA.muted=false;var p=baA.play();if(p&&p.catch)p.catch(function(){});},{once:true});
   baA.addEventListener('timeupdate',function(){if(Math.abs(baB.currentTime-baA.currentTime)>.35){try{baB.currentTime=baA.currentTime;}catch(e){}}});
 
   /* looping videos start only when they come on screen and pause when they leave: nothing heavy on page open */
