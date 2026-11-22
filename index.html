@@ -226,7 +226,8 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
 .fx-slot.pop canvas{animation:iconPop .55s cubic-bezier(.2,1.6,.4,1)}
 @keyframes iconPop{0%{scale:1}35%{scale:1.35}100%{scale:1}}
 .fx-slot.big{width:170px}
-.video-mute{position:absolute;right:12px;bottom:12px;z-index:3;border:1px solid rgba(255,255,255,.45);background:rgba(10,10,16,.72);color:#fff;border-radius:999px;padding:9px 12px;font:600 12px/1 inherit;cursor:pointer;backdrop-filter:blur(8px)}
+.video-mute,.video-play{position:absolute;right:12px;bottom:12px;z-index:3;border:1px solid rgba(255,255,255,.45);background:rgba(10,10,16,.72);color:#fff;border-radius:999px;padding:9px 12px;font:600 12px/1 inherit;cursor:pointer;backdrop-filter:blur(8px)}
+.video-play{left:12px;right:auto}
 .video-mute:hover{background:rgba(255,255,255,.95);color:#111}
 .center,.ba,.zodiac-screen{position:relative}
 </style>
@@ -307,11 +308,12 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
 <section class="ba-sec" id="ba">
   <div class="ba phone" id="baBox">
     <div class="ba-in">
-      <video class="after" id="baAfter" autoplay loop playsinline preload="metadata" poster="after.jpg" src="after.mp4"></video>
-      <video class="before" id="baBefore" muted loop playsinline preload="none" data-lazy poster="before.jpg" src="before.mp4"></video>
+      <video class="after" id="baAfter" loop playsinline preload="metadata" poster="after.jpg" src="after.mp4"></video>
+      <video class="before" id="baBefore" muted loop playsinline preload="none" poster="before.jpg" src="before.mp4"></video>
       <div class="ba-line"></div>
       <span class="ba-tag l">До</span><span class="ba-tag r">После</span>
     </div>
+    <button class="video-play" id="baPlay" type="button" aria-label="Запустить видео">▶ Запустить</button>
     <button class="video-mute" type="button" data-mute-target="baAfter" aria-label="Включить звук">Звук: выкл.</button>
     <input type="range" id="baRange" min="0" max="100" value="50" aria-label="Граница между исходником и готовым роликом">
   </div>
@@ -492,8 +494,8 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   /* before / after */
   var baBox=$('baBox'), baB=$('baBefore'), baA=$('baAfter');
   $('baRange').addEventListener('input',function(){baBox.style.setProperty('--pos',this.value+'%');});
-  baBox.addEventListener('click',function(e){if(e.target.id==='baRange')return;baA.muted=false;baB.muted=true;var p=baA.play();if(p&&p.catch)p.catch(function(){});});
-  window.addEventListener('pointerdown',function(){baA.muted=false;var p=baA.play();if(p&&p.catch)p.catch(function(){});},{once:true});
+  $('baPlay').addEventListener('click',function(){var start=baA.paused;baA.muted=false;baB.muted=true;if(start){baA.play();baB.play();this.textContent='Ⅱ Пауза';}else{baA.pause();baB.pause();this.textContent='▶ Запустить';}});
+  baA.addEventListener('ended',function(){$('baPlay').textContent='▶ Запустить';});
   baA.addEventListener('timeupdate',function(){if(Math.abs(baB.currentTime-baA.currentTime)>.35){try{baB.currentTime=baA.currentTime;}catch(e){}}});
 
   /* looping videos start only when they come on screen and pause when they leave: nothing heavy on page open */
