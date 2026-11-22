@@ -505,11 +505,11 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   var baBox=$('baBox'), baB=$('baBefore'), baA=$('baAfter');
   $('baRange').addEventListener('input',function(){baBox.style.setProperty('--pos',this.value+'%');});
   var pairSyncing=false,pairFrame=0;
-  function syncPair(){if(!pairSyncing)return;var d=baA.currentTime-baB.currentTime;if(Math.abs(d)>.22){try{baB.currentTime=baA.currentTime;}catch(e){}}else{baB.playbackRate=Math.max(.96,Math.min(1.04,1+d*.55));}pairFrame=requestAnimationFrame(syncPair);}
+  function syncPair(){if(!pairSyncing)return;var d=baA.currentTime-baB.currentTime;if(Math.abs(d)>.28){try{baB.currentTime=baA.currentTime;}catch(e){}}else{baB.playbackRate=Math.max(.86,Math.min(1.14,1+d*1.8));}pairFrame=requestAnimationFrame(syncPair);}
   $('baPlay').addEventListener('click',function(){var start=baA.paused;baA.muted=false;baB.muted=true;if(start){pairRunning=true;pairSyncing=true;baB.playbackRate=1;baB.currentTime=baA.currentTime;Promise.all([baA.play(),baB.play()]).catch(function(){});cancelAnimationFrame(pairFrame);pairFrame=requestAnimationFrame(syncPair);this.textContent='Ⅱ Пауза';}else{pairRunning=false;pairSyncing=false;cancelAnimationFrame(pairFrame);baA.pause();baB.pause();baB.playbackRate=1;this.textContent='▶ Запустить';}});
   baA.addEventListener('pause',function(){if(!baB.paused&&pairRunning)return;pairSyncing=false;cancelAnimationFrame(pairFrame);});
   baA.addEventListener('ended',function(){pairRunning=false;pairSyncing=false;$('baPlay').textContent='▶ Запустить';});
-  baA.addEventListener('timeupdate',function(){if(pairSyncing&&Math.abs(baB.currentTime-baA.currentTime)>.22){try{baB.currentTime=baA.currentTime;}catch(e){}}});
+  baA.addEventListener('timeupdate',function(){if(pairSyncing&&Math.abs(baB.currentTime-baA.currentTime)>.28){try{baB.currentTime=baA.currentTime;}catch(e){}}});
 
   /* looping videos start only when they come on screen and pause when they leave: nothing heavy on page open */
   (function(){
