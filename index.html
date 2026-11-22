@@ -440,7 +440,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   var pageVideos=Array.prototype.slice.call(document.querySelectorAll('video'));
   function syncMuteButtons(){Array.prototype.forEach.call(document.querySelectorAll('[data-mute-target]'),function(btn){var v=$(btn.getAttribute('data-mute-target'));if(!v)return;var on=!v.muted;btn.textContent=on?'Звук: вкл.':'Звук: выкл.';btn.setAttribute('aria-label',on?'Выключить звук':'Включить звук');});}
   var pairRunning=false;
-  pageVideos.forEach(function(v){v.addEventListener('play',function(){if(pairRunning&&v.getAttribute('data-video-group')==='before-after'){return;}pageVideos.forEach(function(other){if(other!==v){other.pause();other.currentTime=0;other.muted=true;}});syncMuteButtons();});v.addEventListener('volumechange',syncMuteButtons);});
+  pageVideos.forEach(function(v){v.addEventListener('play',function(){var group=v.getAttribute('data-video-group');pageVideos.forEach(function(other){var samePair=pairRunning&&group==='before-after'&&other.getAttribute('data-video-group')===group;if(other!==v&&!samePair){other.pause();other.currentTime=0;other.muted=true;}});syncMuteButtons();});v.addEventListener('volumechange',syncMuteButtons);});
   Array.prototype.forEach.call(document.querySelectorAll('[data-mute-target]'),function(btn){btn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var v=$(btn.getAttribute('data-mute-target'));if(!v)return;if(v.muted){pageVideos.forEach(function(other){if(other!==v)other.muted=true;});v.muted=false;var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.muted=true;}syncMuteButtons();});});
   syncMuteButtons();
   var TG='https://t.me/shis01d?text=';
