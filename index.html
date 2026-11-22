@@ -430,7 +430,8 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   function tryPlay(v){var p=v.play();if(p&&p.catch)p.catch(function(){});}
   var pageVideos=Array.prototype.slice.call(document.querySelectorAll('video'));
   function syncMuteButtons(){Array.prototype.forEach.call(document.querySelectorAll('[data-mute-target]'),function(btn){var v=$(btn.getAttribute('data-mute-target'));if(!v)return;var on=!v.muted;btn.textContent=on?'Звук: вкл.':'Звук: выкл.';btn.setAttribute('aria-label',on?'Выключить звук':'Включить звук');});}
-  pageVideos.forEach(function(v){v.addEventListener('play',function(){var group=v.getAttribute('data-video-group');pageVideos.forEach(function(other){if(other!==v&&other.getAttribute('data-video-group')!==group){other.pause();other.currentTime=0;other.muted=true;}});syncMuteButtons();});v.addEventListener('volumechange',syncMuteButtons);});
+  var pairRunning=false;
+  pageVideos.forEach(function(v){v.addEventListener('play',function(){if(pairRunning&&v.getAttribute('data-video-group')==='before-after'){return;}pageVideos.forEach(function(other){if(other!==v){other.pause();other.currentTime=0;other.muted=true;}});syncMuteButtons();});v.addEventListener('volumechange',syncMuteButtons);});
   Array.prototype.forEach.call(document.querySelectorAll('[data-mute-target]'),function(btn){btn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var v=$(btn.getAttribute('data-mute-target'));if(!v)return;if(v.muted){pageVideos.forEach(function(other){if(other!==v)other.muted=true;});v.muted=false;var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.muted=true;}syncMuteButtons();});});
   syncMuteButtons();
   var TG='https://t.me/shis01d?text=';
@@ -494,7 +495,7 @@ footer{padding:28px 0 64px;color:var(--muted);font-size:14px}
   /* before / after */
   var baBox=$('baBox'), baB=$('baBefore'), baA=$('baAfter');
   $('baRange').addEventListener('input',function(){baBox.style.setProperty('--pos',this.value+'%');});
-  $('baPlay').addEventListener('click',function(){var start=baA.paused;baA.muted=false;baB.muted=true;if(start){baA.play();baB.play();this.textContent='Ⅱ Пауза';}else{baA.pause();baB.pause();this.textContent='▶ Запустить';}});
+  $('baPlay').addEventListener('click',function(){var start=baA.paused;baA.muted=false;baB.muted=true;if(start){pairRunning=true;baA.play();baB.play();setTimeout(function(){pairRunning=false;},250);this.textContent='Ⅱ Пауза';}else{pairRunning=false;baA.pause();baB.pause();this.textContent='▶ Запустить';}});
   baA.addEventListener('ended',function(){$('baPlay').textContent='▶ Запустить';});
   baA.addEventListener('timeupdate',function(){if(Math.abs(baB.currentTime-baA.currentTime)>.35){try{baB.currentTime=baA.currentTime;}catch(e){}}});
 
